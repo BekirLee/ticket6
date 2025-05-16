@@ -30,6 +30,22 @@ export const basketSlice = createSlice({
         console.log("2");
       }
     },
+    plusBtn: (state, action) => {
+      const item = state.items.find(
+        (product) => product._id == action.payload._id
+      );
+      if (item) {
+        item.count++;
+      }
+    },
+    minusBtn: (state, action) => {
+      const item = state.items.find(
+        (product) => product._id == action.payload._id
+      );
+      if (item.count > 1) {
+        item.count--;
+      }
+    },
     removeBasket: (state, action) => {
       state.items = state.items.filter(
         (product) => product._id !== action.payload._id
@@ -38,7 +54,8 @@ export const basketSlice = createSlice({
   },
 });
 
-export const { addBasket, removeBasket } = basketSlice.actions;
+export const { addBasket, removeBasket, minusBtn, plusBtn } =
+  basketSlice.actions;
 export default basketSlice.reducer;
 
 // import { createSlice } from "@reduxjs/toolkit";

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeBasket } from "../features/Basket";
+import { minusBtn, plusBtn, removeBasket } from "../features/Basket";
 
 const Basket = () => {
   const dispatch = useDispatch();
@@ -31,6 +31,19 @@ const Basket = () => {
               onClick={() => dispatch(removeBasket(item))}
             >
               delete
+            </button>
+
+            <button
+              className="btn btn-danger"
+              onClick={() => dispatch(plusBtn(item))}
+            >
+              plus
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => dispatch(minusBtn(item))}
+            >
+              minus
             </button>
           </div>
         </div>
