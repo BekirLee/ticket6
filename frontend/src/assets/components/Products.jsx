@@ -7,6 +7,7 @@ import {
   sortZA,
 } from "../features/Product";
 import Product from "./Product";
+import "./product.css";
 
 const Products = () => {
   const products = useSelector((state) => state.products.products);
@@ -26,14 +27,16 @@ const Products = () => {
   };
 
   return (
-    <div>
+    <div className="container-custom">
       <input type="text" value={findProduct} onChange={handleSearch} />
       <button onClick={() => dispatch(sortAZ())}>AZ</button>
       <button onClick={() => dispatch(sortZA())}>ZA</button>
 
-      {products.map((product) => (
-        <Product key={product._id} product={product} />
-      ))}
+      <div className="cards container-custom ">
+        {products.map((product) => (
+          <Product key={product._id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };

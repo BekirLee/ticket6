@@ -1,18 +1,82 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, fetchProducts } from "../../features/Product";
+import {
+  createProduct,
+  deleteProduct,
+  fetchProducts,
+} from "../../features/Product";
+import { useFormik } from "formik";
+import schema from "../../formikYup/schema";
 
 const Admin = () => {
   const products = useSelector((state) => state.products.products);
-  console.log(products);
+  // console.log(products);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      image: "",
+      price: "",
+      description: "",
+    },
+    validationSchema: schema,
+    onSubmit: (values, { resetForm }) => {
+      dispatch(createProduct(values)), resetForm();
+    },
+  });
   return (
     <div className="container">
+      <form onSubmit={formik.handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="">Name Input</label>
+          <input
+            type="text"
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+          />
+          <span className="danger">{formik.errors.name}</span>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="">img Input</label>
+          <input
+            type="text"
+            name="image"
+            value={formik.values.image}
+            onChange={formik.handleChange}
+          />
+          <span className="danger">{formik.errors.image}</span>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="">price Input</label>
+          <input
+            type="number"
+            name="price"
+            value={formik.values.price}
+            onChange={formik.handleChange}
+          />
+          <span className="danger">{formik.errors.price}</span>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="">Name Input</label>
+          <input
+            type="text"
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+          />
+          <span className="danger">{formik.errors.description}</span>
+        </div>
+        <button type="submit" className="btn btn-success">
+          Add Product
+        </button>
+      </form>
+
       <table className="table">
         <thead>
           <tr>

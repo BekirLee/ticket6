@@ -30,10 +30,15 @@ export const basketSlice = createSlice({
         console.log("2");
       }
     },
+    removeBasket: (state, action) => {
+      state.items = state.items.filter(
+        (product) => product._id !== action.payload._id
+      );
+    },
   },
 });
 
-export const { addBasket } = basketSlice.actions;
+export const { addBasket, removeBasket } = basketSlice.actions;
 export default basketSlice.reducer;
 
 // import { createSlice } from "@reduxjs/toolkit";

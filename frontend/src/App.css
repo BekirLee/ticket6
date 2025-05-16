@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+
+.container-custom {
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (max-width: 576px) {
+  .container-sm {
+    /* max-width: 540px;   */
+  }
+  .cards {
+    justify-content: center !important;
+  }
+}

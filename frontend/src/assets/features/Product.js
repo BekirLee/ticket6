@@ -15,6 +15,26 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchSingleProduct = createAsyncThunk(
+  "products/fetchSingleProduct",
+  async (id) => {
+    console.log(id);
+
+    const response = await axios.get(`${port}/${id}`);
+    console.log(response);
+
+    return response.data;
+  }
+);
+
+export const createProduct = createAsyncThunk(
+  "products/createProduct",
+  async (product) => {
+    const response = await axios.post(port, product);
+    return response.data;
+  }
+);
+
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async (id) => {
@@ -26,6 +46,7 @@ export const deleteProduct = createAsyncThunk(
 const initialState = {
   products: [],
   allProducts: [],
+  singleProduct: null,
 };
 
 export const productSlice = createSlice({
@@ -54,10 +75,20 @@ export const productSlice = createSlice({
         state.products = action.payload;
         state.allProducts = action.payload;
       })
+      .addCase(fetchSingleProduct.fulfilled, (state, action) => {
+        state.singleProduct = action.payload;
+        console.log(action.payload);
+      })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         const id = action.payload;
         state.products = state.products.filter((item) => item._id !== id);
         state.allProducts = state.allProducts.filter((item) => item._id !== id);
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.products.push(action.payload);
+        console.log(action.payload);
+
+        state.allProducts.push(action.payload);
       });
   },
 });

@@ -10,6 +10,8 @@ import Admin from "./assets/pages/Admin/Admin";
 import ErrorPage from "./assets/pages/ErrorPage";
 import Basket from "./assets/pages/Basket";
 import Home from "./assets/pages/Home";
+import Wishlist from "./assets/pages/Wishlist";
+import Detail from "./assets/pages/Detail";
 
 function App() {
   const router = createBrowserRouter([
@@ -48,6 +50,14 @@ function App() {
         {
           path: "/basket",
           element: <Basket />,
+        },
+        {
+          path: "/wishlist",
+          element: <Wishlist />,
+        },
+        {
+          path: "/detail/:id",
+          element: <Detail />,
         },
         {
           path: "/*",

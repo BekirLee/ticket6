@@ -1,8 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeBasket } from "../features/Basket";
 
 const Basket = () => {
+  const dispatch = useDispatch();
   const basketItems = useSelector((state) => state.basket.items);
   useEffect(() => {
     console.log(basketItems);
@@ -15,14 +17,25 @@ const Basket = () => {
   //   }
 
   return (
-    <div>
+    <>
       {basketItems.map((item) => (
-        <div key={item._id}>
-          <p>{item.name}</p>
-          <p>Adet: {item.count}</p>
+        <div className="card" key={item._id}>
+          <div className="card-image">
+            <img src={item.image} alt="" />
+          </div>
+          <div className="card-body">
+            <p>{item.name}</p>
+            <p>Adet: {item.count}</p>
+            <button
+              className="btn btn-danger"
+              onClick={() => dispatch(removeBasket(item))}
+            >
+              delete
+            </button>
+          </div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

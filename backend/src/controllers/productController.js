@@ -18,6 +18,15 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
